@@ -67,11 +67,13 @@ end
 
 function outSound = makeWhiteNoise(cfg)
 
-% make white noise sound
-outSound = randn(1, cfg.stimDuration * cfg.fs);
+% make white noise with gaussian?
+% outSound = randn(1, cfg.stimDuration * cfg.fs);
+% make white noise with uniform distiubution to have [-1 +1]
+outSound = (rand(1,cfg.stimDuration * cfg.fs)-0.5)*2;
 
 % limit amplitude to [-1 to 1]
-outSound = outSound/max(outSound);
+outSound = outSound/max(abs(outSound));
 
 % apply ramp
 outSound = applyRamp(outSound,cfg);
@@ -90,9 +92,10 @@ end
 function outSound = makePinkNoise(cfg)
 
 % let's start with white noise
-outSound = randn(1, cfg.stimDuration * cfg.fs);
+% at this case we use uniform distiubution to have [-1 +1]
+outSound = (rand(1,cfg.stimDuration * cfg.fs)-0.5)*2;
 
-% create q vector for filtering
+% create a vector for filtering
 pinkFilter = zeros(1, length(outSound));
 pinkFilter(1) = 1;
 for i = 2:length(outSound)
@@ -106,8 +109,7 @@ outSound = filter(1, pinkFilter, outSound);
 outSound = applyRamp(outSound,cfg);
 
 % limit amplitude to [-1 to 1] aka normalize again
-outSound = outSound/max(outSound);
-outSound = outSound/abs(min(outSound));
+outSound = outSound/max(abs(outSound));
 
 % apply amp to avoid chirping
 outSound = cfg.amp .* outSound;
@@ -118,8 +120,11 @@ end
 
 function outSound = makeBrownNoise(cfg)
 
-% let's start with white noise
-outSound = randn(1, cfg.stimDuration * cfg.fs);
+% make white noise with gaussian?
+% outSound = randn(1, cfg.stimDuration * cfg.fs);
+% make white noise with uniform distiubution to have [-1 +1]
+outSound = (rand(1,cfg.stimDuration * cfg.fs)-0.5)*2;
+
 
 % create q vector for filtering
 brownFilter = zeros(1, length(outSound));
@@ -135,7 +140,7 @@ outSound = filter(1, brownFilter, outSound);
 outSound = applyRamp(outSound,cfg);
 
 % limit amplitude to [-1 to 1] aka normalize again
-outSound = outSound/max(outSound);
+outSound = outSound/max(abs(outSound));
 
 % apply amp to avoid chirping
 outSound = cfg.amp .* outSound;

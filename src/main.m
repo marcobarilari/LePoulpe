@@ -19,17 +19,17 @@ waitForAWhile = 0;
 %% prepare sounds to be played
 fs = 44100;
 saveAsWav = 1;
-duration = 1.2;
+duration = 0.5;
 
 % outSound = generateNoise('white', duration, saveAsWav, fs);
 outSound = generateNoise('pink', duration, saveAsWav, fs);
 
 
 nbSpeakers = 31;
-saveAsWav = 0;
+saveAsWav = 1;
 
 % [soundArray] = cutSoundArray(inputSound, inputName, fs, nbSpeakers, saveAsWav);
-[soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, 0);
+[soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveAsWav);
 
 
 % build the speaker arrays for each direction
