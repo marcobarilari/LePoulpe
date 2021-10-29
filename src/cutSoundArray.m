@@ -19,11 +19,6 @@ function [soundArray] = cutSoundArray(inputSound, inputName, sampleRate, nbSpeak
 outputPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
                         'inputSounds');
 
-if ~isdir(outputPath)
-                        
-   mkdir(outputPath);
-                    
-end
 
 % set default
 if isempty(saveAsWav)
@@ -59,28 +54,13 @@ for iSpeaker = 1:nbSpeakers
 
     soundArray{iSpeaker} = inputSound(startIdx(iSpeaker):endIdx(iSpeaker))';
 
-    if saveAsWav        
-        
-        
-        fileChunkName = [num2str(audioLength*1000), ...
-            'ms_' inputName, ...
-            '_nbSpeaker-' num2str(iSpeaker), ...
-            '.wav'];
-        
-        fileChunkFolder = fullfile(outputPath, ...
-            ['cut_nbSpeakers-' ...
-            num2str(nbSpeakers) '_' ...
-            num2str(audioLength*1000) 'ms',...
-            inputName ]);
-        
-        if ~isdir(fileChunkFolder)
-            
-            mkdir(fileChunkFolder);
-            
-        end
-        
-        audiowrite(fullfile(fileChunkFolder,fileChunkName), ...
+    if saveAsWav
 
+        fileChunkName = fullfile(outputPath, ...
+            [inputName, num2str(audioLength*1000), ...
+            'ms_speaker-' num2str(iSpeaker) '.wav']);
+
+        audiowrite(fileChunkName, ...
             soundArray{iSpeaker}, ...
             sampleRate);
 
