@@ -17,7 +17,7 @@ function [soundArray] = cutSoundArray(inputSound, inputName, sampleRate, nbSpeak
 %
 % :returns: - :soundChunks: (matrix) (nbSpeakers, x) a matrix with the audio chunks ready to be used
 outputPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
-                        'inputSounds');
+                        ['input' filesep 'noise']);
 
 
 % set default

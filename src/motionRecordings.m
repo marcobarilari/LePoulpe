@@ -13,7 +13,8 @@ nbCycles = 2    ;
 
 nbSpeakers = 31;
 
-soundPath = 'C:\Users\local-admin\Documents\MATLAB\Google\inputMotion';
+soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
+                        ['input' filesep 'noise_motion']);
 
 % build the speaker arrays for each direction
 speakerIdxRightward = generateMotionSpeakerArray('rightward');

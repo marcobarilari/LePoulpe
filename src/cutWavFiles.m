@@ -17,7 +17,7 @@ function [soundArray] = cutWavFiles(nbSpeakers, saveAsWav)
 %
 % :returns: - :soundChunks: (matrix) (nbSpeakers, x) a matrix with the audio chunks ready to be used
 inputPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
-                        'inputSounds');
+                        ['input' filesep 'noise']);
 
 % set defautks
 if isempty(saveAsWav)
