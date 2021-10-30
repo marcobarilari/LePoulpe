@@ -22,7 +22,7 @@ function playMotionSound(axis, speakerIdx, soundArray, nbRepetition, waitForSwti
 
   end
 
-  if length(speakerIdx) ~= size(soundArray, 2)
+  if length(speakerIdx) ~= size(soundArray, 2);
 
     error('The nb of sound chunks ar not equal to the nb of speakers selected')
 

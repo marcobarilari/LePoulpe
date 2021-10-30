@@ -4,7 +4,7 @@ soundPath = 'C:\Users\local-admin\Documents\MATLAB\Google\song\technologic.wav';
 % soundPath = 'C:\Users\local-admin\Documents\MATLAB\Google\song\belgian_anthem.wav';
 
 % sec
-chunkLength = 3;
+chunkLength = 1.5;
 
 [longSong, sampleRate] = audioread(soundPath);
 
@@ -60,9 +60,11 @@ speakerIdxUpward = generateMotionSpeakerArray('upward');
 
 
 speakersArray = [ speakerIdxRightward; ...
-                  speakerIdxLeftward; ...
-                  speakerIdxDownward; ...
-                  speakerIdxUpward ];
+                  speakerIdxLeftward];
+
+%                   ; ...
+%                   speakerIdxDownward; ...
+%                   speakerIdxUpward ];
 
 axes = { 'horizontal', ...
          'horizontal', ...
@@ -76,24 +78,27 @@ visualDirection = { 'rightward', ...
 
 jummp = [ 2 2 1 1 ];
 
-for iChunk = 1:20 %size(songArray, 2)
+casualDirection = repmat([2, 1], 1, 100);
 
-    casualDirection = Randi(4);
 
-    disp(axes{casualDirection});
+for iChunk = 1:size(songArray, 2)
 
-    disp(speakersArray(casualDirection));
+%     casualDirection = Randi(2);
 
-    disp(visualDirection{casualDirection});
+%     disp(axes{casualDirection});
 
-    playMotionSound(axes{casualDirection}, ...
-                speakersArray(casualDirection, :), ...
+%     disp(speakersArray(casualDirection));
+
+%     disp(visualDirection{casualDirection});
+
+    playMotionSound(axes{casualDirection(iChunk)}, ...
+                speakersArray(casualDirection(iChunk), :), ...
                 soundArray(iChunk, :), ...
                 1, ...
                 0);
 
 %     playVisualMotion(visualDirection{casualDirection}, ...
-%                  0.0387, ...
+%                  0.01, ...
 %                  jummp(casualDirection), ...
 %                  1)
 
