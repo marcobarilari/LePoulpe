@@ -1,6 +1,6 @@
 % (C) Copyright 2021 CPP LePoulpe developers
 
-function speakerIdx = generateMotionSpeakerArray(input)
+function speakerIdx = generateMotionSpeakerArray(direction)
 
   % map the arms with directions
 
@@ -22,9 +22,9 @@ function speakerIdx = generateMotionSpeakerArray(input)
   vertDownToCenterMinusOne = 16:30;
   vertCenterPlusOnetoUp = 15:-1:1;
 
-  %  create the entire
+  %  create the entire speakers array with their index
 
-  switch input
+  switch direction
 
     case 'rightward'
 
