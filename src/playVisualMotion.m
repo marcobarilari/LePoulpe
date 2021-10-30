@@ -124,7 +124,7 @@ for k = 1:nbRepetition
             t = GetSecs();
 
             while time < speed
-
+                
                 time = GetSecs() - t;
 
             end

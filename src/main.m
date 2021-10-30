@@ -11,7 +11,7 @@
 
 % through the repetitions with 5s wait time.
 
-pacedByUser = true;
+pacedByUser = false;
 
 waitForAWhile = 0;
 
@@ -19,14 +19,12 @@ waitForAWhile = 0;
 %% prepare sounds to be played
 fs = 44100;
 saveAsWav = 1;
-duration = 0.5;
+duration = 0.8;
 
 % outSound = generateNoise('white', duration, saveAsWav, fs);
 outSound = generateNoise('pink', duration, saveAsWav, fs);
 
-
 nbSpeakers = 31;
-saveAsWav = 1;
 
 % [soundArray] = cutSoundArray(inputSound, inputName, fs, nbSpeakers, saveAsWav);
 [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveAsWav);
@@ -75,30 +73,32 @@ playMotionSound('vertical', ...
                 waitForSwtich);
 
  %% play LEDs (visual motion)
-nbRepetition = 3;
+speed = .03;
+nbRepetition = 1;
+
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
 playVisualMotion('rightward', ...
-                 0.0170, ...
+                 speed, ...
                  2, ...
                  nbRepetition);
 
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
 playVisualMotion('leftward', ...
-                 0.0170, ...
+                 speed, ...
                  2, ...
                  nbRepetition)
 
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
 playVisualMotion('downward', ...
-                 0.0170, ...
+                 speed, ...
                  1, ...
                  nbRepetition)
 
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
 playVisualMotion('upward', ...
-                 0.0170, ...
+                 speed, ...
                  1, ...
                  nbRepetition)
