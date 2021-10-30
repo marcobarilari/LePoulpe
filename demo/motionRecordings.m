@@ -1,3 +1,4 @@
+run(fullfile('..', 'initLePoulpe.m'));
 
 pacedByUser = true;
 

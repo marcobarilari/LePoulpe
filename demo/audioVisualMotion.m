@@ -7,6 +7,8 @@
 % For visual motion it activates LEDs in a given speed, plane (horizontal,
 % vertical).
 
+run(fullfile('..', 'initLePoulpe.m'));
+
 pacedByUser = false;
 
 waitForAWhile = 0;

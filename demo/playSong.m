@@ -1,3 +1,4 @@
+run(fullfile('..', 'initLePoulpe.m'));
 
 soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
                         ['input' filese 'song' filesep 'technologic.wav');
