@@ -1,25 +1,28 @@
 % (C) Copyright 2021 CPP LePoulpe developers
 
-% this is the main script to present auditory or visual motion in LePoulpe
-% it calls generate sounds (white, pink, brown noise) in a given length and
+% This demo presents auditory or visual motion on LePoulpe.
+% It generates sound noises (white, pink, brown noise) in a given length and
 % cuts the sound array into chunks to play each chunk in a speaker.
+%
+% For visual motion it activates LEDs in a given speed, plane (horizontal,
+% vertical).
 
-% for visual motion it activates LEDs in a given speed, plane (horizontal,
-% vertical), and plays them in a given number of repetitions
-
-% if the suer control is needed, please provide that. Otherwise it loops
-
-% through the repetitions with 5s wait time.
+run(fullfile('..', 'initLePoulpe.m'));
 
 pacedByUser = false;
 
 waitForAWhile = 0;
 
+%% set cfg for LEDs
+speed = .03;
+nbRepetitionLED = 1;
 
-%% prepare sounds to be played
+%% set cfg for sounds
 fs = 44100;
 saveAsWav = 1;
 duration = 0.8;
+nbRepetitionSound = 2;
+waitForSwtich = 1;
 
 % outSound = generateNoise('white', duration, saveAsWav, fs);
 outSound = generateNoise('pink', duration, saveAsWav, fs);
@@ -40,65 +43,67 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
 %% play sounds (auditory motion)
-nbRepetition = 2;
-
-waitForSwtich = 1;
-
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playMotionSound('horizontal', ...
                 speakerIdxRightward, ...
                 soundArray, ...
-                nbRepetition, ...
+                nbRepetitionSound, ...
                 waitForSwtich);
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playMotionSound('horizontal', ...
                 speakerIdxLeftward, ...
                 soundArray, ...
-                nbRepetition, ...
+                nbRepetitionSound, ...
                 waitForSwtich);
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playMotionSound('vertical', ...
                 speakerIdxDownward, ...
                 soundArray, ...
-                nbRepetition, ...
+                nbRepetitionSound, ...
                 waitForSwtich);
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playMotionSound('vertical', ...
                 speakerIdxUpward, ...
                 soundArray, ...
-                nbRepetition, ...
+                nbRepetitionSound, ...
                 waitForSwtich);
 
  %% play LEDs (visual motion)
-speed = .03;
-nbRepetition = 1;
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playVisualMotion('rightward', ...
                  speed, ...
                  2, ...
-                 nbRepetition);
+                 nbRepetitionLED);
 
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playVisualMotion('leftward', ...
                  speed, ...
                  2, ...
-                 nbRepetition)
+                 nbRepetitionLED)
 
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playVisualMotion('downward', ...
                  speed, ...
                  1, ...
-                 nbRepetition)
+                 nbRepetitionLED)
 
 
 pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 playVisualMotion('upward', ...
                  speed, ...
                  1, ...
-                 nbRepetition)
+                 nbRepetitionLED)
