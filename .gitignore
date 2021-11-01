@@ -1,2 +1,4 @@
 # ignore autosaved file in matlab
 *.m~
+
+.DS_Store
