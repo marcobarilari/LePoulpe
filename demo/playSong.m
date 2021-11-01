@@ -1,7 +1,7 @@
 run(fullfile('..', 'initLePoulpe.m'));
 
 soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
-                        ['input' filese 'song' filesep 'technologic.wav');
+                        ['input' filese 'song' filesep 'technologic.wav']);
 
 % soundPath = 'C:\Users\local-admin\Documents\MATLAB\Google\song\belgian_anthem.wav';
 
