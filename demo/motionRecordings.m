@@ -10,7 +10,7 @@ waitAfter = 2;
 
 nbRepetitions = 1;
 
-nbCycles = 2    ;
+nbCycles = 2;
 
 nbSpeakers = 31;
 
