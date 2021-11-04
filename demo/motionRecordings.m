@@ -1,8 +1,8 @@
 run(fullfile('..', 'initLePoulpe.m'));
 
-pacedByUser = true;
-
 saveCutAudio = 0;
+
+pacedByUser = true;
 
 waitForAWhile = 1;
 
