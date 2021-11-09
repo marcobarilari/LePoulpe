@@ -90,7 +90,7 @@ for iRepetition = 1:nbRepetition
     soundChunkLength = length(soundArray{speakerSoundCoulpe(2, 1)});
     
     % pre-allocate space to the matrix to be feeded to the NI analog card
-    data = zeros(soundChunkLength, nbSpeakers);
+    data = zeros(soundChunkLength, 31);
     startPoint = 0;
     endPoint = 0;
     

@@ -6,9 +6,9 @@ waitForAWhile = 0;
 
 waitForSwtich = 1;
 
-axesToTest = 'vertical'; % horizontal / vertical
+axesToTest = 'horizontal'; % horizontal / vertical
 
-direction = 'downward'; %'rightward' - 'leftward' / 'upward' - 'downward'
+direction = 'leftward'; %'rightward' - 'leftward' / 'upward' - 'downward'
 
 %% prepare sounds to be played
 fs = 44100;
@@ -52,13 +52,13 @@ switch direction
         
 end
 
+pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+
 for iSpeaker = 1:length(speakerIdx)
     
     speakerToTest = speakerIdx(iSpeaker);
-    
-    pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
-    
-    playMotionSound(axesToTest, ...
+        
+    playOneSpeaker(axesToTest, ...
         speakerToTest, ...
         soundArray, ...
         nbRepetition, ...
