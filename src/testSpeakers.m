@@ -8,7 +8,7 @@ waitForSwtich = 1;
 
 axesToTest = 'horizontal'; % horizontal / vertical
 
-direction = 'leftward'; %'rightward' - 'leftward' / 'upward' - 'downward'
+direction = 'upward'; %'rightward' - 'leftward' / 'upward' - 'downward'
 
 %% prepare sounds to be played
 fs = 44100;
