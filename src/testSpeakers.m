@@ -6,9 +6,7 @@ waitForAWhile = 0;
 
 waitForSwtich = 1;
 
-axesToTest = 'horizontal'; % horizontal / vertical
-
-direction = 'upward'; %'rightward' - 'leftward' / 'upward' - 'downward'
+direction = 'leftward'; %'rightward' - 'leftward' / 'upward' - 'downward'
 
 %% prepare sounds to be played
 fs = 44100;
@@ -48,7 +46,7 @@ switch direction
         
         axesToTest = 'vertical';
         
-        speakerIdx = generateMotionSpeakerArray('downward');
+        speakerIdx = generateMotionSpeakerArray('upward');
         
 end
 
