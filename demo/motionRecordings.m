@@ -1,4 +1,4 @@
-run(fullfile('..', 'initLePoulpe.m'));
+ run(fullfile('..', 'initLePoulpe.m'));
 
 pacedByUser = true;
 
