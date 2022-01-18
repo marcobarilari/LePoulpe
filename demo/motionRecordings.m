@@ -1,6 +1,4 @@
- run(fullfile('..', 'initLePoulpe.m'));
-
-saveCutAudio = 0;
+run(fullfile('..', 'initLePoulpe.m'));
 
 saveCutAudio = 0;
 
@@ -30,7 +28,7 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
-soundsToPlay = {  'pink_0p8_ramp25ms.wav', ...
+soundsToPlay = {  'pink_0p250_ramp25ms.wav', ...
                 };
 
 for iDuration = 1:size(soundsToPlay, 2)
