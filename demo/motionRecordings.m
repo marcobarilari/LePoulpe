@@ -29,7 +29,7 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
 soundsToPlay = {  'pink_0p250_ramp25ms.wav', ...
-                };
+                'pink_0p1_ramp25ms.wav  '};
 
 for iDuration = 1:size(soundsToPlay, 2)
     % loadAudio
