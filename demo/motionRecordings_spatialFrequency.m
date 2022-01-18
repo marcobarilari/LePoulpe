@@ -6,7 +6,7 @@ pacedByUser = true;
 
 waitForAWhile = 1;
 
-waitForSwtich = 3;
+waitForSwtich = 0;
 
 waitAfter = 2;
 
@@ -32,11 +32,11 @@ speakerIdxUpward = generateMotionSpeakerArray('upward');
 
 spatialFreq = {'low', 'high'};
 
-lowSpatialFreqIdxLeftward = 1:5:31;
+lowSpatialFreqIdxLeftward = 1:10:31;
 
 speakerIdxLeftwardLowSpatialFreq = speakerIdxLeftward(lowSpatialFreqIdxLeftward);
 
-lowSpatialFreqIdxRightward = 31:-5:1;
+lowSpatialFreqIdxRightward = 31:-10:1;
 
 speakerIdxRightwardLowSpatialFreq = speakerIdxLeftward(lowSpatialFreqIdxRightward);
 
@@ -49,7 +49,7 @@ highSpatialFreqIdxRightward = 31:-3:1;
 speakerIdxRightwardHighSpatialFreq = speakerIdxLeftward(highSpatialFreqIdxRightward);
 
 % list the sounds be played
-soundsToPlay = { 'pink_0p8_ramp25ms.wav', ...
+soundsToPlay = { 'pink_0p5_ramp25ms.wav', ...
                 };
 
 for iSpatialFreq = 1:length(spatialFreq)
@@ -58,11 +58,15 @@ for iSpatialFreq = 1:length(spatialFreq)
         
         case 'low' 
             
+            fprintf('low')
+            
             speakerIdxRightward = speakerIdxRightwardLowSpatialFreq;
             
             speakerIdxLeftward = speakerIdxLeftwardLowSpatialFreq;
             
         case 'high'
+            
+            fprintf('high')
             
             speakerIdxRightward = speakerIdxRightwardHighSpatialFreq;
             
@@ -102,21 +106,21 @@ for iDuration = 1:size(soundsToPlay, 2)
 
         WaitSecs(waitAfter)
 
-        playMotionSound('vertical', ...
-            speakerIdxDownward, ...
-            soundArray, ...
-            nbRepetitions, ...
-            waitForSwtich);
-
-        WaitSecs(waitAfter)
-
-        playMotionSound('vertical', ...
-            speakerIdxUpward, ...
-            soundArray, ...
-            nbRepetitions, ...
-            waitForSwtich);
-
-        WaitSecs(waitAfter)
+%         playMotionSound('vertical', ...
+%             speakerIdxDownward, ...
+%             soundArray, ...
+%             nbRepetitions, ...
+%             waitForSwtich);
+% 
+%         WaitSecs(waitAfter)
+% 
+%         playMotionSound('vertical', ...
+%             speakerIdxUpward, ...
+%             soundArray, ...
+%             nbRepetitions, ...
+%             waitForSwtich);
+% 
+%         WaitSecs(waitAfter)
 
     end
 

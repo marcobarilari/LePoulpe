@@ -2,7 +2,7 @@
 
 pacedByUser = false;
 
-waitForAWhile = 0;
+waitForAWhile = 2;
 
 waitForSwtich = 1;
 
