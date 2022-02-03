@@ -5,7 +5,12 @@ function pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
   % pressSpaceForMe()
   %
   % Use that to stop your script and only restart when the space bar is pressed.
-  %
+
+  if nargin < 2
+
+    waitForAWhile = 0;
+
+  end
 
   if pacedByUser
 
