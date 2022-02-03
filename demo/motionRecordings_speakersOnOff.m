@@ -2,10 +2,6 @@ run(fullfile('..', 'initLePoulpe.m'));
 
 saveCutAudio = 0;
 
-saveCutAudio = 0;
-
-saveCutAudio = 0;
-
 pacedByUser = true;
 
 waitForAWhile = 1;
@@ -20,14 +16,15 @@ nbCycles = 2;
 
 nbSpeakers = 31;
 
-nbSpeakersOn = 3;
+nbSpeakersOn = 5; %3
 
 soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
     ['input' filesep 'noise_motion']);
 
 
-soundsToPlay = {  'pink_0p250_ramp25ms.wav', ...
-                'pink_0p1_ramp25ms.wav  '};
+soundsToPlay = { 'pink_1p2_ramp25ms.wav', ...
+                 'pink_0p250_ramp25ms.wav', ...
+                 'pink_0p1_ramp25ms.wav  '};
 
 % build the speaker arrays for each direction
 speakerIdxRightward = generateMotionSpeakerArray('rightward');
