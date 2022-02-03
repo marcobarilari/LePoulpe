@@ -2,15 +2,11 @@ run(fullfile('..', 'initLePoulpe.m'));
 
 saveCutAudio = 0;
 
-saveCutAudio = 0;
-
-saveCutAudio = 0;
-
 pacedByUser = true;
 
 waitForAWhile = 1;
 
-waitForSwtich = 3;
+waitForSwtich = 0;
 
 waitAfter = 2;
 
@@ -32,54 +28,102 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
-soundsToPlay = {  'pink_0p250_ramp25ms.wav', ...
-                'pink_0p1_ramp25ms.wav  '};
+% select the speakers for the specific spatial frequency
+
+spatialFreq = {'low', 'high'};
+
+lowSpatialFreqIdxLeftward = 1:10:31;
+
+speakerIdxLeftwardLowSpatialFreq = speakerIdxLeftward(lowSpatialFreqIdxLeftward);
+
+lowSpatialFreqIdxRightward = 31:-10:1;
+
+speakerIdxRightwardLowSpatialFreq = speakerIdxLeftward(lowSpatialFreqIdxRightward);
+
+highSpatialFreqIdxLeftward = 1:3:31;
+
+speakerIdxLeftwardHighSpatialFreq = speakerIdxLeftward(highSpatialFreqIdxLeftward);
+
+highSpatialFreqIdxRightward = 31:-3:1;
+
+speakerIdxRightwardHighSpatialFreq = speakerIdxLeftward(highSpatialFreqIdxRightward);
+
+% list the sounds be played
+soundsToPlay = { 'pink_0p5_ramp25ms.wav', ...
+                };
+
+for iSpatialFreq = 1:length(spatialFreq)
+
+    switch spatialFreq{iSpatialFreq}
+        
+        case 'low' 
+            
+            fprintf('low')
+            
+            speakerIdxRightward = speakerIdxRightwardLowSpatialFreq;
+            
+            speakerIdxLeftward = speakerIdxLeftwardLowSpatialFreq;
+            
+        case 'high'
+            
+            fprintf('high')
+            
+            speakerIdxRightward = speakerIdxRightwardHighSpatialFreq;
+            
+            speakerIdxLeftward = speakerIdxLeftwardHighSpatialFreq;
+            
+    end
+    
+
+    nbSpeakers = length(speakerIdxRightward);
 
 for iDuration = 1:size(soundsToPlay, 2)
     % loadAudio
-    
+
     [outSound, fs] = audioread(fullfile(soundPath, soundsToPlay{iDuration}));
-    
+
     % cutAudio
-    
+
     [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveCutAudio);
-    
+
     pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
-    
+
     for i = 1:nbCycles
-        
+
         playMotionSound('horizontal', ...
             speakerIdxRightward, ...
             soundArray, ...
             nbRepetitions, ...
             waitForSwtich);
-        
+
         WaitSecs(waitAfter)
-        
+
         playMotionSound('horizontal', ...
             speakerIdxLeftward, ...
             soundArray, ...
             nbRepetitions, ...
             waitForSwtich);
-        
+
         WaitSecs(waitAfter)
-        
+
 %         playMotionSound('vertical', ...
 %             speakerIdxDownward, ...
 %             soundArray, ...
 %             nbRepetitions, ...
 %             waitForSwtich);
-%         
+% 
 %         WaitSecs(waitAfter)
-%         
+% 
 %         playMotionSound('vertical', ...
 %             speakerIdxUpward, ...
 %             soundArray, ...
 %             nbRepetitions, ...
 %             waitForSwtich);
-%         
+% 
 %         WaitSecs(waitAfter)
-        
+
     end
-    
+
+end
+
 end
