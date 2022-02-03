@@ -16,7 +16,7 @@ nbCycles = 2;
 
 nbSpeakers = 31;
 
-nbSpeakersOn = 5; %3
+nbSpeakersOn = 6; %3
 
 soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
     ['input' filesep 'noise_motion']);
