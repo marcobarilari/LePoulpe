@@ -16,15 +16,15 @@ nbCycles = 2;
 
 nbSpeakers = 31;
 
-nbSpeakersOn = 6; %3
+nbSpeakersOn = 6 ; %3
 
 soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
     ['input' filesep 'noise_motion']);
 
 
-soundsToPlay = { 'pink_1p2_ramp25ms.wav', ...
-                 'pink_0p250_ramp25ms.wav', ...
-                 'pink_0p1_ramp25ms.wav  '};
+soundsToPlay = { 'pink_1p5_ramp25ms.wav', ...
+                 'pink_1p2_ramp25ms.wav', ...
+                 'pink_0p250_ramp25ms.wav  '};
 
 % build the speaker arrays for each direction
 speakerIdxRightward = generateMotionSpeakerArray('rightward');
