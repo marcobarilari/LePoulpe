@@ -16,7 +16,7 @@ function playMotionSound_moreSpeakers(opt, axis, speakerIdx, soundArray, nbRepet
   %  - NI: 'PXI1Slot3' ao0-14  ; Matlab: 1:14 upper arm (up to center)
   %  - NI: 'PXI1Slot3' ao30-15 ; Matlab: 31:16 lower arm (center to down)
 
-  if nargin < 4
+   if nargin < 4
 
     nbRepetition = 1;
 
@@ -27,6 +27,8 @@ function playMotionSound_moreSpeakers(opt, axis, speakerIdx, soundArray, nbRepet
     error('The nb of sound chunks ar not equal to the nb of speakers selected')
 
   end
+  
+  nbSpeakersOn = opt.nbSpeakersOn;
 
   % set sound intensity
   amp = 1;
@@ -98,12 +100,16 @@ function playMotionSound_moreSpeakers(opt, axis, speakerIdx, soundArray, nbRepet
     soundChunkLength = length(soundArray{speakerSoundCouple(2, 1)});
 
     % pre-allocate space to the matrix to be feeded to the NI analog card
-    data = zeros(soundChunkLength, 31);
+    data = zeros(soundChunkLength*31+100, 31);
 
     endPoint = 0;
     
+    adjustValue = 0;
+    
     % make wav matrix with gaps and sounds and designated speakers
     for iSpeaker = 1:length(speakerIdx)
+        
+      disp(iSpeaker)
 
       % build the final matrix to play at once `data(time, speakerIdx)`
       startPoint = endPoint + 1;
@@ -112,19 +118,31 @@ function playMotionSound_moreSpeakers(opt, axis, speakerIdx, soundArray, nbRepet
       
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       
-      segmentArray = soundArray(iSpeaker:(iSpeaker + opt.nbSpeakersOn - 1));
+      if (iSpeaker + nbSpeakersOn - 1) > 31
+          
+          nbSpeakersOn = nbSpeakersOn - 1;
+          
+      end
+          
+          
       
-      bellLength = size(segmentArray{1}, 2) * size(segmentArray,2);
+      segmentArray = soundArray(iSpeaker:(iSpeaker + nbSpeakersOn - 1));
+      
+      bellLength = size(segmentArray{1}, 2) * opt.nbSpeakersOn;
       
       gaussianRamp = makeGaussianRamp(bellLength);
       
-      gaussianRamp = gaussianRamp(1 : length(soundArray{soundIdx(iSpeaker)}) * size(segmentArray, 2));
+      gaussianRamp = gaussianRamp(1 : end);
       
       [rampArray] = cutSoundArray(gaussianRamp, 'gauss', 44100, opt.nbSpeakersOn, 0);
-               
-      segmentRamped = cell2mat(segmentArray).*gaussianRamp;
       
-      segmentRampedArray = cutSoundArray(segmentRamped, 'segmentRamped', 44100, opt.nbSpeakersOn, 0);
+      rampArray = rampArray(1:nbSpeakersOn);
+                           
+      rampArray = cellfun(@transpose,rampArray,'un',0);
+      
+      segmentRamped = cell2mat(segmentArray).*cell2mat(rampArray);
+      
+      segmentRampedArray = cutSoundArray(segmentRamped, 'segmentRamped', 44100, nbSpeakersOn, 0);
 
       
 %       figure(1)
@@ -142,12 +160,22 @@ function playMotionSound_moreSpeakers(opt, axis, speakerIdx, soundArray, nbRepet
 %       end
 
       
-      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
       
-      for iSegmentSpeaker = 1:size(segmentArray, 2) 
+  
+      
+      for iSegmentSpeaker = 1:nbSpeakersOn
+          
+        if size(segmentRampedArray{iSegmentSpeaker}, 1) ~= soundChunkLength
+            
+            adjustValue = soundChunkLength - size(segmentRampedArray{iSegmentSpeaker}, 1);
+            
+        end
 
-        data(startPoint:endPoint, speakerIdx(iSpeaker + iSegmentSpeaker - 1)) = amp * segmentRampedArray{soundIdx(iSegmentSpeaker)};   % *2 looks like amplifier here
+        data(startPoint:(endPoint - adjustValue), speakerIdx(iSpeaker + iSegmentSpeaker - 1)) = amp * segmentRampedArray{iSegmentSpeaker};   % *2 looks like amplifier here
 
+        adjustValue = 0;
+        
       end
       
     end

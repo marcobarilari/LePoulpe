@@ -1,5 +1,11 @@
 run(fullfile('..', 'initLePoulpe.m'));
 
+% maybe useful?
+
+% %clip when it gets too loud
+% new_data = max( min(new_data, 1), -1 );   
+
+
 opt.saveCutAudio = 0;
 
 opt.pacedByUser = true;
@@ -23,6 +29,7 @@ opt.soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
 
 
 opt.soundsToPlay = { 'pink_1p2.wav'};
+
 
 % build the speaker arrays for each direction
 opt.speakerIdxRightward = generateMotionSpeakerArray('rightward');
@@ -56,19 +63,20 @@ for iDuration = 1:size(opt.soundsToPlay, 2)
     
     [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, opt.nbSpeakers, opt.saveCutAudio);
     
-    silence = zeros(1, size(soundArray{1}, 2));
-    
-    for iSpeakerOff = 1:length(speakersOff)
-        
-        soundArray{1, speakersOff(iSpeakerOff)} = silence;
-    
-    end
+%     silence = zeros(1, size(soundArray{1}, 2));
+%     
+%     for iSpeakerOff = 1:length(speakersOff)
+%         
+%         soundArray{1, speakersOff(iSpeakerOff)} = silence;
+%     
+%     end
     
     pressSpaceForMeOrWait(opt.pacedByUser, opt.waitForAWhile)
     
     for i = 1:opt.nbCycles
         
-        playMotionSound_moreSpeakers('horizontal', ...
+        playMotionSound_moreSpeakers(opt, ...
+            'horizontal', ...
             opt.speakerIdxRightward, ...
             soundArray, ...
             opt.nbRepetitions, ...
@@ -76,7 +84,8 @@ for iDuration = 1:size(opt.soundsToPlay, 2)
         
         WaitSecs(opt.waitAfter)
         
-        playMotionSound_moreSpeakers('horizontal', ...
+        playMotionSound_moreSpeakers(opt, ...
+            'horizontal', ...
             opt.speakerIdxLeftward, ...
             soundArray, ...
             opt.nbRepetitions, ...
