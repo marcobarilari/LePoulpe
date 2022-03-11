@@ -96,3 +96,4 @@ for iDuration = 1:size(opt.soundsToPlay, 2)
     end
     
 end
+  

@@ -32,8 +32,7 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
-soundsToPlay = {  'pink_0p250_ramp25ms.wav', ...
-                'pink_0p1_ramp25ms.wav  '};
+soundsToPlay = { 'pink_1p2.wav'};
 
 for iDuration = 1:size(soundsToPlay, 2)
     % loadAudio
@@ -42,7 +41,17 @@ for iDuration = 1:size(soundsToPlay, 2)
     
     % cutAudio
     
-    [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveCutAudio);
+     [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveCutAudio);
+
+     pink = makePinkNoise(size(soundArray{1}, 2));
+     
+%       soundArray = {pink, pink, pink, pink, pink, ...
+%           pink, pink, pink, pink, pink, ...
+%           pink, pink, pink, pink, pink, ...
+%           pink, pink, pink, pink, pink, ...
+%           pink, pink, pink, pink, pink, ...
+%           pink, pink, pink, pink, pink, ...
+%           pink};
     
     pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
     
@@ -81,5 +90,4 @@ for iDuration = 1:size(soundsToPlay, 2)
 %         WaitSecs(waitAfter)
         
     end
-    
 end
