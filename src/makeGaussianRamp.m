@@ -16,6 +16,6 @@ gaussianRamp = gaussianRamp / max(gaussianRamp);
 
 % figure(2)
 
-% plot(x,f);
+% plot(gaussianRamp);
 
 end
