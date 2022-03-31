@@ -42,7 +42,7 @@ for iSpatialFreq = 1:length(spatialFreq)
 
     selectedSPeakersLeftward = speakerIdxLeftward(selcetSpeakers);
 
-    selectedSPeakersRightward = speakerIdxLeftward(selcetSpeakers);
+    selectedSPeakersRightward = speakerIdxRighttward(selcetSpeakers);
     
     nbSpeakers = length(selectedSPeakersLeftward);
 
