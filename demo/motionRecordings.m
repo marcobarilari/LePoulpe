@@ -1,3 +1,5 @@
+% (C) Copyright 2021 Marco Barilari
+
 run(fullfile('..', 'initLePoulpe.m'));
 
 saveCutAudio = 0;
