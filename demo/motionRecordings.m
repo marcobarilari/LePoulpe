@@ -1,6 +1,10 @@
-% (C) Copyright 2021 Marco Barilari
+        % (C) Copyright 2021 Marco Barilari
 
+      
+      
 run(fullfile('..', 'initLePoulpe.m'));
+
+waitForAWhile = 3;
 
 saveCutAudio = 0;
 
@@ -10,8 +14,7 @@ saveCutAudio = 0;
 
 pacedByUser = true;
 
-waitForAWhile = 1;
-
+  
 waitForSwtich = 3;
 
 waitAfter = 2;
@@ -34,9 +37,9 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
-soundsToPlay = {  'pink_0p250_ramp25ms.wav', ...
-                'pink_0p1_ramp25ms.wav  '};
-
+soundsToPlay = { 'pink_0p85_ramp25ms.wav', ...
+    'pink_0p8_ramp25ms.wav'};
+ 
 for iDuration = 1:size(soundsToPlay, 2)
     % loadAudio
     
@@ -56,8 +59,7 @@ for iDuration = 1:size(soundsToPlay, 2)
             nbRepetitions, ...
             waitForSwtich);
         
-        WaitSecs(waitAfter)
-        
+          
         playMotionSound('horizontal', ...
             speakerIdxLeftward, ...
             soundArray, ...
@@ -66,21 +68,21 @@ for iDuration = 1:size(soundsToPlay, 2)
         
         WaitSecs(waitAfter)
         
-%         playMotionSound('vertical', ...
-%             speakerIdxDownward, ...
-%             soundArray, ...
-%             nbRepetitions, ...
-%             waitForSwtich);
-%         
-%         WaitSecs(waitAfter)
-%         
-%         playMotionSound('vertical', ...
-%             speakerIdxUpward, ...
-%             soundArray, ...
-%             nbRepetitions, ...
-%             waitForSwtich);
-%         
-%         WaitSecs(waitAfter)
+        playMotionSound('vertical', ...
+            speakerIdxDownward, ...
+            soundArray, ...
+            nbRepetitions, ...
+            waitForSwtich);
+         
+        WaitSecs(waitAfter)
+        
+        playMotionSound('vertical', ...
+            speakerIdxUpward, ...
+            soundArray, ...
+            nbRepetitions, ...
+            waitForSwtich);
+        
+        WaitSecs(waitAfter)
         
     end
     
