@@ -74,7 +74,7 @@ for iRepetition = 1:nbRepetition
     set(AOLR, 'SampleRate', 44100);
     
     % ----------------------------------------------------------------------------------------------
-    WaitSecs(waitForSwtich);
+    pause(waitForSwtich);
     
     %% prepare the sound to be loaded in the NI analog card
     

@@ -1,3 +1,5 @@
+% (C) Copyright 2021 Marco Barilari
+
 run(fullfile('..', 'initLePoulpe.m'));
 
 saveCutAudio = 0;
@@ -14,10 +16,15 @@ nbRepetitions = 1;
 
 nbCycles = 2;
 
-nbSpeakers = 31;
-
 soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
     ['input' filesep 'noise_motion']);
+
+% list the sounds be played
+soundsToPlay = { 'pink_1p5_ramp25ms.wav', ...
+                };  
+
+% spatial frequency as as "play every x speakers"
+spatialFreq = [3];
 
 % build the speaker arrays for each direction
 speakerIdxRightward = generateMotionSpeakerArray('rightward');
@@ -28,62 +35,23 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
-% select the speakers for the specific spatial frequency
-
-spatialFreq = {'low', 'high'};
-
-lowSpatialFreqIdxLeftward = 1:10:31;
-
-speakerIdxLeftwardLowSpatialFreq = speakerIdxLeftward(lowSpatialFreqIdxLeftward);
-
-lowSpatialFreqIdxRightward = 31:-10:1;
-
-speakerIdxRightwardLowSpatialFreq = speakerIdxLeftward(lowSpatialFreqIdxRightward);
-
-highSpatialFreqIdxLeftward = 1:3:31;
-
-speakerIdxLeftwardHighSpatialFreq = speakerIdxLeftward(highSpatialFreqIdxLeftward);
-
-highSpatialFreqIdxRightward = 31:-3:1;
-
-speakerIdxRightwardHighSpatialFreq = speakerIdxLeftward(highSpatialFreqIdxRightward);
-
-% list the sounds be played
-soundsToPlay = { 'pink_0p5_ramp25ms.wav', ...
-                };
-
 for iSpatialFreq = 1:length(spatialFreq)
 
-    switch spatialFreq{iSpatialFreq}
-        
-        case 'low' 
-            
-            fprintf('low')
-            
-            speakerIdxRightward = speakerIdxRightwardLowSpatialFreq;
-            
-            speakerIdxLeftward = speakerIdxLeftwardLowSpatialFreq;
-            
-        case 'high'
-            
-            fprintf('high')
-            
-            speakerIdxRightward = speakerIdxRightwardHighSpatialFreq;
-            
-            speakerIdxLeftward = speakerIdxLeftwardHighSpatialFreq;
-            
-    end
-    
+    % select the speakers for the specific spatial frequency
+    selcetSpeakers = 1: spatialFreq(iSpatialFreq):31;
 
-    nbSpeakers = length(speakerIdxRightward);
+    selectedSPeakersLeftward = speakerIdxLeftward(selcetSpeakers);
+
+    selectedSPeakersRightward = speakerIdxRightward(selcetSpeakers);
+    
+    nbSpeakers = length(selectedSPeakersLeftward);
 
 for iDuration = 1:size(soundsToPlay, 2)
+    
     % loadAudio
-
     [outSound, fs] = audioread(fullfile(soundPath, soundsToPlay{iDuration}));
 
     % cutAudio
-
     [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveCutAudio);
 
     pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
@@ -91,7 +59,7 @@ for iDuration = 1:size(soundsToPlay, 2)
     for i = 1:nbCycles
 
         playMotionSound('horizontal', ...
-            speakerIdxRightward, ...
+            selectedSPeakersRightward, ...
             soundArray, ...
             nbRepetitions, ...
             waitForSwtich);
@@ -99,7 +67,7 @@ for iDuration = 1:size(soundsToPlay, 2)
         WaitSecs(waitAfter)
 
         playMotionSound('horizontal', ...
-            speakerIdxLeftward, ...
+            selectedSPeakersLeftward, ...
             soundArray, ...
             nbRepetitions, ...
             waitForSwtich);
