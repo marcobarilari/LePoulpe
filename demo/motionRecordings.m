@@ -1,6 +1,10 @@
 % (C) Copyright 2021 Marco Barilari
 
+      
+      
 run(fullfile('..', 'initLePoulpe.m'));
+
+waitForAWhile = 3;
 
 saveCutAudio = 0;
 
@@ -10,11 +14,10 @@ saveCutAudio = 0;
 
 pacedByUser = true;
 
-waitForAWhile = 1;
-
+  
 waitForSwtich = 3;
 
-waitAfter = 2;
+waitAfter = 1.5;
 
 nbRepetitions = 1;
 
@@ -34,9 +37,9 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
-soundsToPlay = {  'pink_0p250_ramp25ms.wav', ...
-                'pink_0p1_ramp25ms.wav  '};
-
+soundsToPlay = { 'pink_0p85_ramp25ms.wav', ...
+    'pink_0p8_ramp25ms.wav'};
+ 
 for iDuration = 1:size(soundsToPlay, 2)
     % loadAudio
     
@@ -46,8 +49,8 @@ for iDuration = 1:size(soundsToPlay, 2)
     
     [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveCutAudio);
     
-    pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
-    
+    pause(waitAfter)
+
     for i = 1:nbCycles
         
         playMotionSound('horizontal', ...
@@ -56,31 +59,30 @@ for iDuration = 1:size(soundsToPlay, 2)
             nbRepetitions, ...
             waitForSwtich);
         
-        WaitSecs(waitAfter)
-        
+          
         playMotionSound('horizontal', ...
             speakerIdxLeftward, ...
             soundArray, ...
             nbRepetitions, ...
             waitForSwtich);
         
-        WaitSecs(waitAfter)
+        pause(waitAfter)        
         
-%         playMotionSound('vertical', ...
-%             speakerIdxDownward, ...
-%             soundArray, ...
-%             nbRepetitions, ...
-%             waitForSwtich);
-%         
-%         WaitSecs(waitAfter)
-%         
-%         playMotionSound('vertical', ...
-%             speakerIdxUpward, ...
-%             soundArray, ...
-%             nbRepetitions, ...
-%             waitForSwtich);
-%         
-%         WaitSecs(waitAfter)
+        playMotionSound('vertical', ...
+            speakerIdxDownward, ...
+            soundArray, ...
+            nbRepetitions, ...
+            waitForSwtich);
+         
+        pause(waitAfter)
+        
+        playMotionSound('vertical', ...
+            speakerIdxUpward, ...
+            soundArray, ...
+            nbRepetitions, ...
+            waitForSwtich);
+        
+        pause(waitAfter)
         
     end
     

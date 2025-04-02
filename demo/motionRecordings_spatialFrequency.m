@@ -20,11 +20,11 @@ soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
     ['input' filesep 'noise_motion']);
 
 % list the sounds be played
-soundsToPlay = { 'pink_0p5_ramp25ms.wav', ...
-                };
+soundsToPlay = { 'pink_1p5_ramp25ms.wav', ...
+                };  
 
 % spatial frequency as as "play every x speakers"
-spatialFreq = [ 3, 5, 6, 10, 15];
+spatialFreq = [3];
 
 % build the speaker arrays for each direction
 speakerIdxRightward = generateMotionSpeakerArray('rightward');
@@ -38,11 +38,11 @@ speakerIdxUpward = generateMotionSpeakerArray('upward');
 for iSpatialFreq = 1:length(spatialFreq)
 
     % select the speakers for the specific spatial frequency
-    selcetSpeakers = 1:spatialFreq(iSpatialFreq):31;
+    selcetSpeakers = 1: spatialFreq(iSpatialFreq):31;
 
     selectedSPeakersLeftward = speakerIdxLeftward(selcetSpeakers);
 
-    selectedSPeakersRightward = speakerIdxRighttward(selcetSpeakers);
+    selectedSPeakersRightward = speakerIdxRightward(selcetSpeakers);
     
     nbSpeakers = length(selectedSPeakersLeftward);
 
