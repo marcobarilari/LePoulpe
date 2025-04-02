@@ -1,23 +1,16 @@
 % (C) Copyright 2021 Marco Barilari
 
-      
-      
 run(fullfile('..', 'initLePoulpe.m'));
-
-waitForAWhile = 3;
-
-saveCutAudio = 0;
-
-saveCutAudio = 0;
 
 saveCutAudio = 0;
 
 pacedByUser = true;
 
-  
+waitForAWhile = 1;
+
 waitForSwtich = 3;
 
-waitAfter = 1.5;
+waitAfter = 2;
 
 nbRepetitions = 1;
 
@@ -25,8 +18,15 @@ nbCycles = 2;
 
 nbSpeakers = 31;
 
+nbSpeakersOn = 6 ; %3
+
 soundPath = fullfile(fileparts(mfilename('fullpath')), '..', ...
     ['input' filesep 'noise_motion']);
+
+
+soundsToPlay = { 'pink_1p5_ramp25ms.wav', ...
+                 'pink_1p2_ramp25ms.wav', ...
+                 'pink_0p250_ramp25ms.wav  '};
 
 % build the speaker arrays for each direction
 speakerIdxRightward = generateMotionSpeakerArray('rightward');
@@ -37,9 +37,24 @@ speakerIdxDownward = generateMotionSpeakerArray('downward');
 
 speakerIdxUpward = generateMotionSpeakerArray('upward');
 
-soundsToPlay = { 'pink_0p85_ramp25ms.wav', ...
-    'pink_0p8_ramp25ms.wav'};
- 
+jumpSpeakerOn = nbSpeakersOn*2;
+
+idxFirstSpeakerOn = 1:jumpSpeakerOn:nbSpeakers;
+
+idxFirstSpeakerOff = idxFirstSpeakerOn + nbSpeakersOn;
+
+idxFirstSpeakerOff = idxFirstSpeakerOff(idxFirstSpeakerOff < nbSpeakers);
+
+speakersOff = [];
+
+for iSpeaker = 1:length(idxFirstSpeakerOff)
+
+    speakersOff = [ speakersOff idxFirstSpeakerOff(iSpeaker):idxFirstSpeakerOff(iSpeaker) +  (nbSpeakersOn - 1) ]; 
+    
+end
+
+speakersOff = speakersOff(speakersOff < nbSpeakers);
+            
 for iDuration = 1:size(soundsToPlay, 2)
     % loadAudio
     
@@ -49,8 +64,16 @@ for iDuration = 1:size(soundsToPlay, 2)
     
     [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveCutAudio);
     
-    pause(waitAfter)
-
+    silence = zeros(1, size(soundArray{1}, 2));
+    
+    for iSpeakerOff = 1:length(speakersOff)
+        
+        soundArray{1, speakersOff(iSpeakerOff)} = silence;
+    
+    end
+    
+    pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
+    
     for i = 1:nbCycles
         
         playMotionSound('horizontal', ...
@@ -59,30 +82,15 @@ for iDuration = 1:size(soundsToPlay, 2)
             nbRepetitions, ...
             waitForSwtich);
         
-          
+        WaitSecs(waitAfter)
+        
         playMotionSound('horizontal', ...
             speakerIdxLeftward, ...
             soundArray, ...
             nbRepetitions, ...
             waitForSwtich);
         
-        pause(waitAfter)        
-        
-        playMotionSound('vertical', ...
-            speakerIdxDownward, ...
-            soundArray, ...
-            nbRepetitions, ...
-            waitForSwtich);
-         
-        pause(waitAfter)
-        
-        playMotionSound('vertical', ...
-            speakerIdxUpward, ...
-            soundArray, ...
-            nbRepetitions, ...
-            waitForSwtich);
-        
-        pause(waitAfter)
+        WaitSecs(waitAfter)
         
     end
     
