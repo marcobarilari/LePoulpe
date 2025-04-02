@@ -1,6 +1,6 @@
 %test speakers
 
-WaitSecs(3)
+% pause(3)
 
 pacedByUser = false;
 

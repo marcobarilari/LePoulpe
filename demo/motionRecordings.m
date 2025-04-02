@@ -1,4 +1,4 @@
-        % (C) Copyright 2021 Marco Barilari
+% (C) Copyright 2021 Marco Barilari
 
       
       
@@ -17,7 +17,7 @@ pacedByUser = true;
   
 waitForSwtich = 3;
 
-waitAfter = 2;
+waitAfter = 1.5;
 
 nbRepetitions = 1;
 
@@ -49,8 +49,8 @@ for iDuration = 1:size(soundsToPlay, 2)
     
     [soundArray] = cutSoundArray(outSound, 'pinknoise', fs, nbSpeakers, saveCutAudio);
     
-    pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
-    
+    pause(waitAfter)
+
     for i = 1:nbCycles
         
         playMotionSound('horizontal', ...
@@ -66,7 +66,7 @@ for iDuration = 1:size(soundsToPlay, 2)
             nbRepetitions, ...
             waitForSwtich);
         
-        WaitSecs(waitAfter)
+        pause(waitAfter)        
         
         playMotionSound('vertical', ...
             speakerIdxDownward, ...
@@ -74,7 +74,7 @@ for iDuration = 1:size(soundsToPlay, 2)
             nbRepetitions, ...
             waitForSwtich);
          
-        WaitSecs(waitAfter)
+        pause(waitAfter)
         
         playMotionSound('vertical', ...
             speakerIdxUpward, ...
@@ -82,7 +82,7 @@ for iDuration = 1:size(soundsToPlay, 2)
             nbRepetitions, ...
             waitForSwtich);
         
-        WaitSecs(waitAfter)
+        pause(waitAfter)
         
     end
     

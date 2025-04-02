@@ -31,6 +31,6 @@ function pressSpaceForMeOrWait(pacedByUser, waitForAWhile)
 
   else
 
-    WaitSecs(waitForAWhile)
+    pause(waitForAWhile)
 
   end
