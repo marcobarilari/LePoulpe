@@ -26,11 +26,11 @@ function speakerIdx = generateMotionSpeakerArray(direction)
 
   switch direction
 
-    case 'rightward'
+    case 'leftward'
 
         speakerIdx = [ horRightToCenterMinusOne horCenter horCenterPlusOneToLeft ];
 
-    case 'leftward'
+    case 'rightward'
 
         speakerIdx = [ horLeftToCenterMinusOne horCenter horCenterPlusOneToRight ];
 

@@ -82,7 +82,7 @@ function playMotionSound(axis, speakerIdx, soundArray, nbRepetition, waitForSwti
     set(AOLR, 'SampleRate', 44100);
 
     % ----------------------------------------------------------------------------------------------
-    WaitSecs(waitForSwtich);
+    pause(waitForSwtich);
 
     %% prepare the sound to be loaded in the NI analog card
 
@@ -98,7 +98,7 @@ function playMotionSound(axis, speakerIdx, soundArray, nbRepetition, waitForSwti
     soundChunkLength = length(soundArray{speakerSoundCoulpe(2, 1)});
 
     % pre-allocate space to the matrix to be feeded to the NI analog card
-    data = zeros(soundChunkLength, nbSpeakers);
+    data = zeros(soundChunkLength, 31);
     startPoint = 0;
     endPoint = 0;
 
@@ -136,7 +136,7 @@ function playMotionSound(axis, speakerIdx, soundArray, nbRepetition, waitForSwti
     dur = size(data, 1) / 44100; % in sec
 
     %% feed the matrix sound into the NI analog card and play it
-
+    
     % queue the NI analog card job
     putdata(AOLR, data);
 
